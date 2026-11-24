@@ -1,0 +1,526 @@
+FASE 1 · IL CASO VÈRSO
+Il richiamo ha portato le richieste da 350 a 600 a settimana
+4.200 batterie richiamate e un’assistenza di due persone più un responsabile.
+Il problema
+4.200
+batterie richiamate, lotto B-2404
++70%
+richieste a settimana: da circa 350 a circa 600
+1 → 5
+giorni di attesa per una risposta
+1.400
+richieste arretrate
+La soluzione
+1
+Legge e classifica
+Ogni richiesta, con il suo livello di urgenza.
+2
+Prepara la risposta
+Si basa sulla policy del richiamo.
+3
+Una persona approva
+I casi gravi, su Telegram, prima dell’invio.
+Fonti: riassunto del caso, 10/11/2026 (dati simulati); flusso Review di gruppo, letto su n8n il 24/11/2026.
+Slide 1 del deck per il board: il problema e la soluzione della Fase 1. Numeri del problema: dal riassunto del caso Vèrso (versione 10/11/2026), dati simulati. Sono dati del caso, non misure del gruppo. Descrizione della soluzione: dal flusso "L7 Agent - Review di gruppo", letto su n8n il 24/11/2026. Il flusso è inattivo e mai pubblicato: finora è stato provato a mano dal modulo. Prove lette sulle esecuzioni il 24/11/2026: garanzia (4773, BASSO, risposta partita da sola), batteria che non si carica con seriale del lotto (4774, ALTO, approvata su Telegram), fumo (4780, CRITICO, bozza con il 112, approvata) e messaggio fuori tema (4781, bloccato dal guardrail, avviso a una persona). Che cosa non fa ancora (non è sulla slide, è nelle slide dei vincoli e dei rischi e in management/05_allineamento_n8n/MODIFICHE_flusso_23112026.md): non prenota le officine (le officine non accettano prenotazioni automatiche); le risposte BASSO e MEDIO partono da sole, senza approvazione; il controllo dei dati personali non c’è. Dal 23-24/11/2026 invece: per ALTO e CRITICO parte un avviso su Telegram e la risposta attende l’approvazione; un messaggio bloccato dal guardrail avvisa una persona, e se contiene parole di pericolo il cliente riceve anche il messaggio con il 112; l’agente che scrive la risposta riceve categoria, livello, lingua e riassunto con l’esito della ricerca del seriale.
+1
+
+LEZIONE 8 · I VINCOLI
+Cinque vincoli: quello nascosto è chiuso, i dati personali restano aperti
+Vincolo
+Che cosa ci toglie
+Come adattiamo la soluzione
+Chi dice sì
+Argomento per il board
+Gestionale: dati aggiornati solo di notte
+Lo stato di oggi: vediamo i dati di ieri
+Verifica del seriale una volta al giorno, risposta al cliente in due tempi
+IT
+Nessun impatto sui sistemi aziendali
+Budget pilota dimezzato
+Il modello grande ovunque, senza tetto di spesa
+Filtri prima dell’AI, modello leggero, tetto di spesa
+CFO
+Costo per richiesta più basso, sotto controllo
+Nessun dato personale conservato
+Il controllo di contenuto non vede i dati personali
+Aggiungere il controllo; niente nomi in log e memoria
+DPO
+Privacy fin dall’inizio, meno rischio di reclamo al Garante
+Officine: no prenotazioni automatiche
+La prenotazione diretta della sostituzione
+L’agente propone, l’officina conferma. Oggi lo strumento non c’è
+Capo officina
+Una soluzione che la rete accetta davvero
+Il vincolo nascosto
+Un messaggio bloccato dal controllo di contenuto si fermava e nessuno lo sapeva
+Fatto: avviso a una persona; se c’è pericolo, anche il 112 al cliente
+Responsabile assistenza
+Nessun messaggio bloccato resta senza che una persona lo sappia
+Fonti: caso Vèrso, 10/11/2026 (dati simulati); flusso letto su n8n il 24/11/2026.
+Slide 2 del deck per il board: i quattro vincoli comuni del caso, più il vincolo nascosto. Un vincolo non si aggira: si rispetta o si negozia. "Chi dice sì" è sempre un ruolo aziendale, non una persona del gruppo. Fatti sul flusso: letti su n8n il 23/11/2026 (workflow "L7 Agent - Review di gruppo"). Il guardrail è acceso ma non controlla i dati personali, e la sua uscita "bloccata" non è collegata a niente. Dettaglio in management/05_allineamento_n8n/matrice_promesse_flusso_23112026.md. Il vincolo nascosto (messaggi bloccati dal guardrail senza avviso) è stato confermato dal gruppo il 23/11/2026. È stato chiuso su n8n il 23-24/11/2026: l’uscita «bloccata» manda un avviso su Telegram; se il testo contiene parole di pericolo parte anche un avviso urgente e un messaggio fisso al cliente con il 112 (testo provvisorio, da approvare dalla DPO). Letto sulle esecuzioni il 24/11/2026 per un messaggio fuori tema (4781): bloccato, avviso arrivato. La corsia di sicurezza con un messaggio di pericolo bloccato è stata provata a mano dal gruppo su un caso (non verificata da noi sulle esecuzioni). Resta aperto il controllo dei dati personali nel guardrail (riga 3).
+2
+
+QUANTO CI SI PUÒ FIDARE
+Su 20 casi, 7 risposte su 8 sono corrette; manca la conferma di Quality
+Che cosa abbiamo provato
+Risultato
+Misurato o stimato
+Limite
+20 casi di prova (24/11/2026)
+8 risposte: 7 corrette, 1 da verificare. 12 bloccate dal controllo di contenuto: 6 giustamente, 3 che dovevano arrivare a una persona, 3 emergenze
+Giudizio nostro
+Da confermare da Quality
+Casi di sicurezza con il 112
+2 su 5 nella prova; la corsia di sicurezza copre gli altri
+Misurato
+Corsia provata a mano su un caso
+4 messaggi dal modulo di contatto (24/11/2026)
+Garanzia, seriale del lotto, fumo, fuori tema: tutti come previsto
+Misurato sulle esecuzioni
+Quattro casi, non una statistica
+Dati usati
+Elenco dei seriali ricostruito dalle regole del caso
+Nostro
+Non è l’archivio originale
+Punti deboli noti
+Il controllo di contenuto non è costante; firma italiana nelle email in tedesco; un caso consiglia di spostare una batteria
+Nostro
+Da correggere
+PRIMA DI PARTIRE
+Ripetere la prova sul flusso in uso e farla valutare da Quality.
+Fonti: prove sul flusso n8n del 24/11/2026 (esecuzioni 4773, 4774, 4780, 4781); seconda prova su 20 casi (giudizio del gruppo); MODIFICHE_flusso_23112026.md.
+Domanda del board: funziona, e come lo sapete? Il criterio «affidabilità dimostrata» del Project Work chiede quanto sbaglia l’agente e come lo sappiamo. Prova su 20 casi (seconda Eval, 24/11/2026, giudizio di Claude sul foglio incollato dal gruppo, da confermare da Quality; non è una misura): 8 risposte, 7 corrette e 1 da verificare (riga 9, ricerca del seriale non usata); 12 bloccate dal controllo di contenuto, di cui 6 giustamente, 3 che dovevano arrivare a una persona e 3 emergenze senza consigli. Le risposte citano la policy. La prima prova dello stesso giorno aveva 7 risposte, 6 corrette e 1 sbagliata (riga 9: rimandava al «produttore», che è Vèrso), e 13 bloccate. Il controllo di contenuto non è costante: la riga 15, bloccata nella prima prova, è passata nella seconda. Casi di sicurezza: nell’Eval solo 2 su 5 hanno ricevuto il consiglio del 112 (righe 15 e 16). Le altre tre sono coperte dalla corsia di sicurezza, che non è nell’Eval ed è stata provata a mano dal gruppo su un caso (riferito, non verificato da noi sulle esecuzioni). Restano due cose da correggere: la riga 15 consiglia di spostare all’aperto una batteria gonfia (da far valutare al team tecnico) e i seriali del bike sharing vanno passati a una persona (da verificare nella policy). Prove dal modulo del 24/11/2026, lette sulle esecuzioni n8n: garanzia (4773, BASSO, risposta partita da sola), batteria che non si carica con seriale del lotto B-2404 (4774, ALTO, seriale cercato nel database, approvata su Telegram), fumo bianco (4780, CRITICO, bozza con il 112, approvata) e messaggio fuori tema (4781, bloccato, avviso a una persona). Sono quattro casi: non bastano per dire quanto sbaglia l’agente. Dati: l’elenco dei seriali è ricostruito dalle regole e dalle 21 eccezioni del file del caso (10/11/2026); i conteggi di controllo del kit tornano, ma non è l’archivio originale. Prima di partire: ripetere l’Eval sul flusso in uso (D-01) e farla giudicare da Quality.
+3
+
+OGNI NUMERO HA LA SUA ETICHETTA
+Abbiamo misurato poco: il resto è stimato o non lo sappiamo
+MISURATO · PROVATO DA NOI
+AI: 0,006-0,009 € a richiesta (24/11)
+4 messaggi dal modulo: tutti come previsto
+20 casi di prova: 7 risposte su 8 corrette (giudizio nostro)
+STIMATO · IPOTESI DICHIARATA
+A mano: 9 minuti × 28 € l’ora = 4,20 € a richiesta
+Persone: circa 4.420 € al mese dopo (stima del docente)
+n8n: 29 € al mese, IVA inclusa (dato del gruppo)
+Benefici dei tre progetti (stime dei proponenti)
+NON LO SAPPIAMO · VA DETTO
+Quanti casi sono gravi
+Quanto serve per approvare su Telegram
+Quante bici dello sharing hanno batterie del lotto, città per città: 300 in tutto, in 8 zone
+Dove i fornitori trattano i dati
+I numeri sono benvenuti, mai obbligatori: il board si fida di chi dichiara i buchi.
+Fonti: costi misurati 24/11/2026; prove sul flusso n8n; esempio del docente L9; flotta sharing (kit, 10/11/2026, simulata).
+Regola dei docenti: ogni numero ha la sua etichetta. Misurato: lo abbiamo provato noi. Stimato: ipotesi dichiarata, con il suo perché. Non lo sappiamo: va detto apertamente. I numeri sono benvenuti, mai obbligatori. Misurato: il costo del modello viene dai token delle esecuzioni n8n del 24/11/2026 con i prezzi Anthropic; i quattro messaggi dal modulo sono le esecuzioni 4773, 4774, 4780 e 4781; il «7 su 8» è un giudizio di Claude sul foglio della seconda Eval (24/11/2026), da confermare da Quality. Stimato: 4,20 € a mano sono 9 minuti a 28 € l’ora (dati del caso); le persone sono le stime dell’esempio del docente (3,27 € e 1,70 € a richiesta, 2.600 richieste al mese); i 29 € di n8n sono un dato del gruppo non verificato sul listino; i benefici dei tre progetti sono stime di chi li propone. Non lo sappiamo: la quota di casi ALTO e CRITICO e il tempo di approvazione non sono misurati; la flotta sharing ha 1.200 bici, di cui 300 con batterie del lotto B-2404 (da BK-0001 a BK-0300), distribuite in 8 zone (Z1-Z8): nel file non c’è il legame tra zone e città, quindi non sappiamo quante siano a Milano e quante a Torino; dove i fornitori trattano i dati non è verificato (sei domande da porre, con la DPO).
+4
+
+LEZIONE 9 · I COSTI
+Una richiesta costa 4,20 € a mano e circa 1,71 € con l’agente
+Per richiesta
+Prima (€)
+Dopo (€)
+Misurato o stimato
+Fonte o ipotesi
+Costo tecnico (l’AI)
+0,52 €
+0,01 €
+Prima dichiarato, dopo misurato
+CFO; 5 prove del 24/11: 0,006-0,009 €
+Costo umano
+1,87 €
+1,40 €
+Stimato
+4 minuti prima, 3 dopo, a 28 € l’ora
+Costo di controllo
+1,40 €
+0,30 €
+Stimato
+3 minuti prima; dopo meno rilettura
+Totale
+3,79 €
+1,71 €
+Misto
+Somma delle tre righe
+AI all’anno
+circa 16.200 €
+circa 280 €
+Prima dichiarato, dopo misurato
+31.200 richieste (600 × 52, picco)
+Totale all’anno
+circa 118.000 €
+circa 53.400 €
+Stimato
+Pesano le ore delle persone
+Tutto a mano: 4,20 € (9 minuti a 28 € l’ora). Umano e controllo: stime del docente, da misurare. I 17.500 € dei tre progetti (lezione 12) sono un’altra voce: non sono il costo per richiesta.
+Fonti: consumi misurati nelle prove del 24/11/2026; listino Anthropic (console, 24/11); memo del CFO; caso Vèrso (simulato).
+Costo tecnico "dopo": MISURATO sui token di sei esecuzioni di Review di gruppo del 24/11/2026 (4720, 4723, 4716, 4726, 4766 complete; 4763 bloccata dal guardrail), con i prezzi di listino letti sulla console Anthropic il 24/11/2026: Haiku 4.5 (guardrail) 1 $ in ingresso e 5 $ in uscita per milione di token; Haiku 5.5 (classificatore e risponditore) 0,10 $ e 0,50 $. Una richiesta completa costa da 0,0066 a 0,0104 $, cioè circa 0,006-0,009 € (cambio 1 € = 1,16 $, kit L9). Una richiesta bloccata dal guardrail costa circa 0,0039 $. Non comprende gli embedding della ricerca nella policy (crediti di base di n8n), l’abbonamento a n8n Cloud e Qdrant (piano gratuito). Costo tecnico "prima": 0,52 € a richiesta è il dato dichiarato dal CFO (311 € su 600 richieste); il CFO ne ricava 0,11 €; non verificato da noi. Il nostro flusso, con modelli leggeri, costa circa 60 volte meno. Costo umano e di controllo, "prima" e "dopo": dall’esempio del docente (02_caso_L9_numeri_dei_costi_SIM.md, 10/11/2026), minuti e costo orario di 28 € dal caso. Sono stime e vanno sostituite con le nostre misure (per esempio il tempo di approvazione su Telegram). Calcoli: 0,52 + 1,87 + 1,40 = 3,79 €; 0,01 + 1,40 + 0,30 = 1,71 €. Annui con 31.200 richieste: 0,52 × 31.200 = circa 16.200 €; 0,009 × 31.200 = circa 280 €; 3,79 × 31.200 = circa 118.000 €; 1,71 × 31.200 = circa 53.400 €. Messaggio chiave: il modello costa meno di un centesimo a richiesta; il costo vero è nelle ore delle persone. I 17.500 € dei tre progetti scelti nella lezione 12 (A 4.500 + idea 1 7.000 + idea 4 6.000, stime dei proponenti, 19/11/2026) sono il costo delle prove, su un budget di 22.500 €. Non vanno sommati al costo per richiesta di questa slide. Le tre prove del 24/11/2026 (esecuzioni 4773, 4774, 4780) non sono ancora nel calcolo dei token: l’intervallo 0,006-0,009 € è quello delle sei esecuzioni già misurate.
+5
+
+LEZIONE 9 · I COSTI AL MESE
+Al mese spendiamo circa 4.470 € invece di 10.920 €: pesano le persone
+Voce al mese
+Prima
+Dopo
+Misurato o stimato
+Fonte o ipotesi
+AI (budget 400 €)
+1.352 €
+circa 23 €
+Prima dichiarato, dopo misurato
+2.600 richieste al mese
+Abbonamento piattaforma n8n
+29 €
+29 €
+Dato del gruppo
+IVA inclusa, da verificare
+Personale: gestione e controllo
+circa 8.500 €
+circa 4.420 €
+Stimato
+3,27 € e 1,70 € a richiesta
+Totale al mese
+circa 9.880 €
+circa 4.470 €
+Misto
+Somma delle tre righe
+Risparmio al mese
+circa 5.400 €
+Stimato
+Prima meno dopo
+Tutto a mano
+10.920 €
+Stimato
+4,20 € per 2.600 richieste
+DEI 400 € STANZIATI PER L’AI
+Ne usiamo circa 23 €; con n8n circa 52 €. Restano circa 348 € al mese. Il costo vero sono le persone.
+Fonti: consumi misurati nelle prove (24/11/2026); memo del CFO; esempio del docente L9; abbonamento n8n: dato del gruppo.
+Conti al mese con 2.600 richieste: sono le 31.200 all’anno del picco (600 a settimana per 52) divise per 12. È un’ipotesi di picco, da dichiarare. Modello: prima 0,52 € × 2.600 = 1.352 €, coerente con i circa 1.350 € al mese del memo del CFO (311 € a settimana; dato dichiarato, non verificato). Dopo 0,009 € × 2.600 = circa 23 € (misurato sui token delle esecuzioni del 24/11/2026, listino Anthropic). Il budget stanziato dal CFO è 400 € al mese: ne restano circa 377 €. Abbonamento n8n Cloud: 29 € al mese, IVA inclusa, dato fornito dal gruppo, non verificato sul listino di n8n. Non era compreso nei costi misurati. Si paga in entrambi i casi, quindi compare in «prima» e «dopo». Non è chiaro se rientri nei 400 € del CFO, che sono il budget per le chiamate al modello. Contandolo, modello più n8n fanno circa 52 € e dei 400 € restano circa 348 €. Personale: sono le stime del docente (esempio L9, 10/11/2026), non nostre misure. Prima: 1,87 € di gestione e 1,40 € di controllo a richiesta, cioè 3,27 € × 2.600 = circa 8.500 €. Dopo: 1,40 € e 0,30 €, cioè 1,70 € × 2.600 = 4.420 €. I minuti e il costo di 28 € l’ora vanno sostituiti con la nostra misura (per esempio il tempo di approvazione su Telegram). Totali: prima 1.352 + 29 + 8.502 = circa 9.880 €; dopo 23 + 29 + 4.420 = circa 4.470 €; risparmio circa 5.400 € al mese. Tutto a mano: 4,20 € × 2.600 = 10.920 € (senza n8n). Messaggio chiave: del budget del modello ne usiamo una piccola parte; la spesa che pesa è il personale, e il risparmio viene dal processo.
+6
+
+LEZIONE 9 · IL CONTROLLO
+L’AI costa meno di un centesimo a richiesta: si risparmia sulle ore
+Contromisura
+Dove si spreca
+Che cosa cambia
+€ l’anno
+Rispetta i vincoli?
+1. Controllo di contenuto con un modello più economico
+Tre controlli con un modello costoso: oltre metà del costo
+Un modello dieci volte meno caro
+circa 100 €
+Sì, da provare
+2. Approvazione solo dei casi gravi
+Rilettura di ogni risposta: 1,40 € a richiesta
+Una persona approva solo i casi gravi
+fino a 34.000 €
+Sì
+3. Smistare ogni richiesta in un solo passaggio
+Fino a tre passaggi con ricerche ripetute
+Istruzioni più chiare, un solo passaggio
+meno di 100 €
+Sì
+Tetto di spesa
+Nessun tetto: 311 € in una settimana (CFO)
+400 € al mese, avviso all’80%, stop al 100%
+al massimo 4.800 €
+Sì, lo controlla il CFO
+FRASE PER IL BOARD
+L’AI costa meno di un centesimo a richiesta: il risparmio vero è nelle ore delle persone.
+Fonti: consumi misurati nelle prove del 24/11/2026; listino Anthropic (24/11); memo del CFO; esempio del docente L9.
+Le contromisure dell’esempio del docente (tetto ai tentativi, cache del prefisso, ragionamento breve: circa 13.500 € l’anno) NON valgono per il nostro flusso: il costo del modello misurato è sotto i 300 € l’anno, quindi non possono risparmiare così tanto. Le abbiamo sostituite con tre contromisure calcolate sui nostri token. 1. Guardrail su Haiku 5.5: il guardrail fa tre chiamate per richiesta su Haiku 4.5 (1 $ e 5 $ per milione di token), circa 3.400-4.600 token in ingresso a richiesta, cioè circa 0,0035-0,0049 $ su 0,0066-0,0104 $ totali. Con i prezzi di Haiku 5.5 (0,10 $ e 0,50 $) costerebbe circa un decimo: risparmio di circa 100 € l’anno a 31.200 richieste. È una stima a parità di token e NON abbiamo provato che la qualità del guardrail resti uguale: va rifatta l’Eval. 2. Approvazione solo per i casi gravi: è già nel flusso (BASSO e MEDIO partono da soli). Il risparmio viene dalla stima del docente: controllo da 1,40 € a 0,30 € a richiesta, circa 1,10 € × 31.200 = circa 34.300 €, dato stimato, da misurare con il tempo vero di approvazione e con la quota reale di casi ALTO e CRITICO. 3. Un solo giro: in un’esecuzione (4723) il classificatore ha fatto tre chiamate invece di due, con 38.883 token invece di 17.518: circa 0,0025 $ in più a richiesta, meno di 100 € l’anno. Tetto di spesa: 400 € al mese è il budget del CFO (dichiarato). La spesa attesa del modello è di circa 20 € al mese a 600 richieste a settimana: proposta, da decidere con il CFO, un tetto più basso (50-100 €) con avviso all’80%. Rischio delle contromisure: un guardrail o un modello più piccolo che sbaglia sposta il costo sul controllo umano.
+7
+
+LEZIONE 10 · CHI GOVERNA
+Ogni passaggio ha una sola persona che ne risponde, mai l’agente
+Passaggio
+Agente
+Operatori
+Resp.
+Officina
+IT
+DPO
+CFO
+Classificare
+R
+I
+A
+–
+C
+–
+–
+Verificare seriale e lotto
+R
+–
+A
+–
+C
+–
+–
+Rispondere al cliente
+R
+R
+A
+–
+–
+C
+I
+Prenotare l’officina
+–
+R
+I
+A
+–
+–
+–
+Rimborsi ed eccezioni
+R
+R
+A
+–
+–
+–
+C
+Reclamo grave o post pubblico
+R
+R
+A
+–
+–
+C
+I
+Cambiare il flusso o le istruzioni
+–
+I
+A
+–
+R
+C
+I
+Le cinque regole, controllate
+R fa · A risponde · C sentito prima · I informato dopo. L’agente è R, mai A. Chi modifica il flusso (IT) non è chi approva (Resp.).
+Da rivedere: le risposte ai casi semplici partono da sole, senza firma. La A resta del Resp. assistenza, ma serve un campione (slide dopo).
+Fonti: scheda L10 e traccia RACI (kit, 19/11/2026); flusso su n8n (24/11/2026). Chi è A, C e I: nostra proposta da confermare con i ruoli; i vice non sono ancora nominati.
+Formato della scheda L10: matrice RACI sui sei passaggi del kit (Agente, Operatori, Responsabile assistenza, Officina, IT, DPO, CFO), con una sola A per riga, sempre una persona, mai l’agente. Ho aggiunto la settima riga, «Cambiare il flusso o le istruzioni», che la traccia dei docenti indica come mancante: è la riga che avrebbe fermato «approva e invia tutto» nell’incidente del rimborso promesso (nessuna richiesta scritta, nessuna approvazione, l’IT non lo sapeva). Le righe, in parole. Classificare e verificare seriale e lotto: l’agente fa; risponde il responsabile assistenza; l’IT è consultato perché sono nel flusso e leggono l’export notturno. Rispondere al cliente: l’agente prepara; gli operatori approvano ALTO e CRITICO su Telegram; risponde il responsabile; la DPO è consultata sul testo (avviso AI, informativa); il CFO è informato. Prenotare l’officina: nel flusso di oggi l’agente non prenota; le officine non accettano prenotazioni automatiche (vincolo del caso), quindi l’operatore prepara e l’officina conferma: la A è del capo officina. Rimborsi ed eccezioni: l’agente raccoglie e passa, non decide (policy v2.1, P06 e P07); firma il responsabile; il CFO è consultato. Reclamo grave o post pubblico: avviso a una persona; risponde il responsabile; la DPO è consultata se il post mostra dati. Correzioni rispetto alla traccia dei docenti: nella traccia l’agente era A in «Classificare» e c’erano due A in «Rimborsi». Qui la A è sempre il responsabile assistenza (o il capo officina per la prenotazione). Da rivedere: oggi BASSO e MEDIO partono senza approvazione. Va deciso se è accettabile con un campione a posteriori. Le persone dietro i ruoli e i loro vice vanno nominati.
+8
+
+LEZIONE 10 · PUNTI DI CONTROLLO UMANO
+Ogni gesto che non si annulla ha una firma, tranne le risposte semplici
+Gesto irreversibile
+Chi firma e vice
+Che cosa vede
+Soglia
+Se nessuno firma
+Risposta ai casi gravi, o con una promessa
+Resp. assistenza; vice da nominare
+Livello, riassunto, note interne e bozza su Telegram
+Sempre
+La bozza resta bozza
+Risposta ai casi semplici, inviata da sola
+Resp. assistenza risponde della regola; vice da nominare
+Nulla prima dell’invio; dopo, un campione
+Oggi mai; proposta: campione ogni settimana
+Parte comunque: rischio accettato dal Resp.
+Cambiare il flusso o le istruzioni
+Resp. assistenza approva; l’IT esegue
+Differenza tra versioni, nella cronologia della piattaforma
+Sempre, per iscritto
+La modifica non va in esercizio
+Fermare l’agente
+Resp. assistenza decide; l’IT spegne il flusso e le credenziali
+Avvisi su Telegram; costo e tetto di spesa dell’AI
+Al primo caso di sicurezza mancato o al tetto
+L’IT può spegnere da solo: poi informa
+Carico a testa
+Picco: 120 richieste al giorno. Quota di casi gravi non misurata. Stima del docente: 6,5 ore a settimana.
+Regola di tutela
+Tetto a testa (ipotesi: 30 al giorno); pause a blocchi; rotazione con chi gestisce le eccezioni.
+Fonti: scheda L10 (kit, 19/11/2026); flusso su n8n (24/11/2026). Firme, soglie e tetto: nostra proposta. Ore: stima del docente.
+Formato della scheda L10, seconda slide: per ogni gesto irreversibile, chi firma e il vice, che cosa vede (il delta, non tutto il testo), la soglia scritta sui fatti (sempre, a campione o mai), e che cosa succede se nessuno firma (la bozza resta bozza). Fatti dal flusso (n8n, 24/11/2026): ALTO, CRITICO e livello non chiaro passano da un messaggio su Telegram con richiesta di approvazione, e partono solo dopo il sì. BASSO e MEDIO partono da soli: non c’è nessun campione oggi. Non è verificato che cosa succede se nessuno risponde su Telegram oltre l’attesa: va controllato il limite di attesa del nodo. Per le emergenze bloccate dal guardrail parte un avviso a una persona e un messaggio fisso con il 112 al cliente (testo provvisorio, da approvare dalla DPO). Fermare l’agente: il responsabile assistenza decide; l’IT disattiva il workflow e le credenziali (Gmail e Telegram oggi con nomi di test, da chiarire con l’IT). Il flusso è inattivo e si avvia a mano nelle prove. Carico: i 120 al giorno sono 600 a settimana su 5 giorni (dato del caso). La stima 6,5 ore a settimana viene dalla traccia dei docenti (1 minuto sul 40% richiamo, mezzo minuto sul 50% informative): è un riferimento, non la nostra misura; va misurato il tempo vero di approvazione e la quota di ALTO e CRITICO. Con «approva tutto» il kit stima circa 60 approvazioni a testa al giorno: per questo il tetto. Tetto di 30 approvazioni: ipotesi nostra, non misurata. Vice, soglie e tetto vanno confermati con il responsabile assistenza.
+9
+
+LEZIONE 11 · CONFORMITÀ E RISCHI
+Primo rischio: l’avviso AI al cliente è senza link e senza ok della DPO
+Domanda
+Oggi
+Gap
+Rischio
+Soluzione
+Prova
+1. Classificazione
+Assistenza clienti: rischio minimo, con obbligo di trasparenza
+Siamo fornitori e utilizzatori: ruolo non scritto
+M
+Scrivere ruolo e responsabile
+Registro con nomi
+2. Trasparenza
+Email di conferma con avviso AI, una volta per indirizzo
+Link all’informativa mancante; nessun modo per chiedere una persona
+A
+Inserire il link, aggiungere il modo, approvazione DPO
+Email di prova; firma DPO
+3. Dati e fornitori
+Testo del cliente a servizi esterni: modelli AI, ricerca nei documenti, Gmail, Telegram
+Dove sono trattati e con quale contratto: non verificato
+A
+Sei domande ai fornitori, con la DPO
+Contratti e risposte scritte
+4. Identificabilità e conservazione
+Il testo arriva all’AI con nome, email e telefono in chiaro
+Nessun dato nascosto; quanto si conservano registri e memoria non è deciso
+A
+Nascondere email e telefoni; fissare i tempi di cancellazione
+Test con dati finti; regola scritta
+5. Tracce e controllo umano
+Casi gravi approvati su Telegram; emergenze bloccate: corsia 112
+Nessuna regola su chi vede e cancella le tracce; corsia provata su 1 caso
+M
+Accessi e cancellazione scritti; Prova con la corsia di sicurezza
+Un caso ricostruito dall’inizio
+TOP 3 PER LA ROADMAP
+1. Avviso AI corretto e link · 2. Nascondere i dati personali prima dell’AI · 3. Contratti e luogo dei dati con la DPO
+Fonti: flusso letto su n8n (23-24/11/2026); schema della scheda L11; caso Vèrso (simulato). Giudizi di rischio: nostri, da confermare con la DPO.
+Formato della scheda L11 (gap analysis a cinque righe): domanda, oggi, gap, rischio A/M/B, soluzione, prova, più la Top 3 che diventa input della roadmap. 1. Classificazione: un agente di assistenza clienti è a rischio minimo con obbligo di trasparenza (AI Act, art. 50, in vigore dal 2/8/2026). Costruendo e usando l’agente con il marchio Vèrso siamo fornitori e utilizzatori: l’obbligo di informare è nostro. 2. Trasparenza: dal 23/11/2026 l’email di conferma con informativa e avviso AI parte una volta per indirizzo (italiano e tedesco). Il 24/11/2026 il testo è stato corretto: dice che i casi delicati sono approvati da una persona e i semplici possono partire in automatico (prima diceva che ogni risposta era approvata). Il link all’informativa è un segnaposto e il testo è provvisorio, da approvare dalla DPO. Manca anche il modo di chiedere una persona (parola chiave o pulsante). 3. Dati e fornitori: il testo del cliente passa da modelli Anthropic, da un servizio di embedding (crediti di n8n), da Gmail e Telegram. Dove sono trattati e con quale contratto non è verificato: le sei domande del docente (dove gira il modello, conservazione, addestramento, sub-fornitori, backup, garanzie extra-UE) vanno poste a ogni fornitore. Il GDPR non impone che i dati restino in Europa: impone di sapere dove vanno. 4. Identificabilità: il guardrail non controlla i dati personali; il testo libero del cliente arriva al modello com’è. Il tempo di conservazione di esecuzioni, memoria e log non è deciso (non verificato). 5. Tracce e controllo umano: approvazione su Telegram per ALTO e CRITICO; avviso e messaggio con il 112 per le emergenze bloccate dal guardrail (corsia di sicurezza, provata a mano su 1 caso). Seconda Eval del 24/11/2026 su 20 casi (giudizio di Claude, da confermare da Quality): 7 risposte corrette, 1 da verificare, 12 bloccate dal guardrail; casi di sicurezza con il 112 nell’Eval: 2 su 5. Account Gmail e Telegram: nomi di test del gruppo, da chiarire con l’IT. Dettaglio in management/05_allineamento_n8n/MODIFICHE_flusso_23112026.md. I livelli di rischio A/M/B sono una nostra valutazione.
+10
+
+LEZIONE 12 · LE TRE SCELTE
+Tre progetti su otto stanno nei limiti: 17.500 € e 5,5 ore su 6
+Scelta
+Progetto
+Valore e facilità
+Controlli: dati · chi ne risponde · chi rischia
+Perché
+1
+A · Una sola verità (registro + FAQ)
+valore basso, facile
+giallo · giallo · verde
+Prima i dati in ordine: la 1 ne ha bisogno
+2
+1 · Risposte in due lingue
+valore alto, facile
+giallo · verde · giallo
+Il guadagno più alto: 20.384 € l’anno (stima)
+3
+4 · Ascolto dei social
+valore alto, facile
+giallo · giallo · giallo
+Il caso critico visibile: 300.000 visualizzazioni
+I DUE LIMITI DELL’AD
+Costo 17.500 € su 22.500 €; ore dell’assistenza 5,5 su 6. Primi risultati entro marzo: tre su tre, ma il terzo alla settimana 19, senza margine.
+Fonti: L12_otto_idee.md e L12_tre_cancelli.md (kit, 19/11/2026, simulati); conti del modello L12_modello_scenari.py (24/11/2026). Numeri dei proponenti: stime. Colori: nostra proposta, da confermare con la DPO.
+Scenario scelto dal gruppo il 24/11/2026: A, 1, 4, nell’ordine in cui i progetti partono. A è il pacchetto registro delle batterie più FAQ unica (4.500 €, 2,5 ore): parte per primo perché la 1 ne ha bisogno. Il modello del kit dice che lo scenario sta nei limiti: 4.500 + 7.000 + 6.000 = 17.500 €, avanzano 5.000 €; 2,5 + 2 + 1 = 5,5 ore. Tempi: A parte alla settimana 0 e dà il primo risultato alla 3; la 1 parte alla 7 e dà il primo risultato alla 11; la 4 parte alla 15 e lo dà alla 19, cioè a marzo. Se la 4 slitta di una settimana esce da marzo. Cancelli (nostra proposta, i colori li decide il gruppo; un pacchetto prende il colore peggiore). A: dati giallo (due registri e tre FAQ che non coincidono), chi ne risponde giallo (nessuno approva le correzioni del registro), chi rischia verde. Idea 1: dati giallo (dipende dalla FAQ unica), chi ne risponde verde, chi rischia giallo (testo del cliente: tolti i dati identificativi e avviso AI). Idea 4: tutti e tre giallo; la condizione è la risposta scritta della DPO sull’uso dei post di persone non clienti. Benefici: stime dei proponenti, non verificate.
+11
+
+LEZIONE 12 · LE RINUNCE
+Quattro idee restano fuori; il punteggio dei clienti è un no
+Idea
+Perché no, o non ora
+Che cosa salviamo
+2 · Appuntamenti in officina
+Non ora: i posti liberi sono dichiarati, non reali
+Il registro pulito (dentro A); passare da Franco Pagani
+3 · Assistente per le officine
+Non ora: tre progetti al massimo; tocca le officine
+Il manuale già pulito; il contatto con il capo officina
+5 · Report del venerdì
+Non ora: dipende dal registro, che arriva con A
+Le 4 ore del venerdì, da misurare
+8 · Punteggio di affidabilità
+No: punisce chi ha scritto, senza motivo né contestazione
+Una persona controlla i rimborsi ripetuti, sui fatti
+L’IDEA 8, IN PAROLE DA CLIENTE
+Un cliente potrebbe perdere un rimborso senza che nessuno sappia spiegare perché, e chi ha scritto di più durante il richiamo verrebbe penalizzato.
+Fonti: offerta del fornitore (L12_offerta_fornitore_idea8_SIM.md, 19/11/2026, simulata); L12_tre_cancelli.md. Il parere legale è della DPO.
+Le rinunce sono quattro e non cinque perché il pacchetto A tiene dentro la 6 e la 7. Ogni riga ha l’idea, il perché e che cosa ne salviamo: una rinuncia non è un’idea buttata. Il perché di ogni «non ora» è una nostra proposta, da confermare. Idea 8: l’AD la vuole partire lunedì (costa 4.000 €, recuperare 40.000 € l’anno secondo lui: stima del proponente, non verificata; l’offerta del fornitore non indica la sede dei server e non prevede la contestazione). Il cancello sul rischio è rosso: l’offerta dice «nessun intervento umano», il modello non spiega il motivo del punteggio, e chi scrive spesso all’assistenza ha un indice più basso, mentre durante il richiamo molti clienti hanno scritto più volte, e avevano ragione. Perché non diventi rossa servirebbe: una persona (il responsabile assistenza) decide ogni rifiuto di rimborso; il cliente riceve il motivo e può contestare; il modello non usa numero e tono dei messaggi; il contratto indica la sede dei server; parere scritto della DPO. L’AI Act (Allegato III, punto 5, lettera b) e l’art. 22 del GDPR sono citati dal kit, verificati il 19/11/2026: non è un parere legale. Alternativa per i rimborsi non dovuti, che sono un problema vero: una persona controlla i rimborsi ripetuti sui fatti (stesso seriale, stessa richiesta), senza punteggi sui clienti.
+12
+
+LEZIONE 12 · LA ROADMAP
+Si passa da una tappa all’altra con un fatto, non con una data
+Tappa
+Che cosa succede
+Criterio per passare
+Chi ne risponde
+Controllo
+Preparazione
+Correzioni D-01; tetto 400 € al mese (D-02); informativa con link
+Prova senza emergenze senza 112; tetto attivo; testo approvato dalla DPO
+IT; CFO; DPO
+Entro il 30/11, poi ogni 30 giorni
+Primo · A Una sola verità
+Una FAQ e un registro, senza nomi di clienti (sett. 0, risultato sett. 3)
+FAQ unica approvata; ogni correzione approvata da una persona
+Resp. assistenza; IT
+Ogni 30 giorni
+Secondo · 1 Risposte in due lingue
+Bozze in italiano e tedesco; l’operatore approva e invia (sett. 7, risultato sett. 11)
+Soglia scritta prima: 8 bozze su 10 con correzioni minori
+Resp. assistenza
+Ogni 30 giorni
+Terzo · 4 Ascolto dei social
+I post su pericoli arrivano a una persona nominata (sett. 15, risultato sett. 19)
+Risposta scritta della DPO sull’uso dei post
+Comunicazione; DPO
+Ogni 30 giorni
+Adozione delle officine
+Nessuna scelta le tocca; gli operatori usano le bozze
+Pagani conferma che nulla cambia; le bozze citano fonte e policy
+Capo officina; Resp. assistenza
+Ogni 30 giorni
+Competenze da tenere
+Un caso di sicurezza a settimana, scritto senza bozza
+Un caso a settimana, a rotazione tra gli operatori
+Operatori
+Ogni settimana
+FRASE PER IL BOARD
+Prima mettiamo in ordine ciò che sappiamo, poi facciamo preparare le risposte con una persona che approva, e solo dopo ascoltiamo i social, con la DPO.
+Fonti: scheda L12 e prompt 4 (kit, 19/11/2026); modello degli scenari (24/11/2026); D-01 e D-02 dalla slide delle decisioni. Tappe, criteri e responsabili: nostra proposta, da confermare con i ruoli.
+Formato della scheda L12: una roadmap non è un calendario. Ogni tappa si chiude con un fatto verificabile; parte per primo ciò di cui gli altri hanno bisogno; le date restano come controlli ogni 30 giorni. Nessun criterio di questa tabella è una data. Preparazione: D-01 (correzioni sul flusso, IT) e D-02 (tetto di 400 € al mese, CFO) entro il 30/11/2026; l’informativa con link va approvata dalla DPO per iscritto (oggi il link è un segnaposto e il testo è provvisorio). Progetti: lo scenario è A, 1, 4 (24/11/2026). Tempi dal modello del kit: A parte alla settimana 0, primo risultato alla 3; la 1 parte alla 7, risultato alla 11; la 4 parte alla 15, risultato alla 19 (marzo, senza margine). Ore dell’assistenza sommate: 5,5 su 6. La soglia «8 bozze su 10 con correzioni minori» è l’esempio dei docenti (RapidoCasa): la nostra soglia la decide il gruppo prima di partire. Officine: nessuna delle tre scelte tocca le officine, quindi la riga dice chi deve usare il risultato e che cosa deve vedere per fidarsi: gli operatori vedono in ogni bozza la fonte e la policy citata; il capo officina (Franco Pagani) conferma che nulla cambia per le officine. Competenze: per non perdere la capacità di rispondere ai casi difficili, un caso a settimana si scrive senza bozza (esempio L12). Tutte le tappe, i criteri e i responsabili sono nostra proposta, da confermare con i ruoli.
+13
+
+LEZIONE 8 · LE DECISIONI
+D-03 è fatta; D-01 e D-02 si chiudono entro il 30/11
+Codice
+Che cosa decidiamo
+Chi (ruolo)
+Entro quando
+Come sapremo che funziona
+D-01
+Portare nel flusso in uso le correzioni emerse dalla prova: sicurezza 112, lingua, messaggi bloccati
+IT
+Entro il 30/11/2026; in gran parte fatto il 23-24/11
+Prova ripetuta sul flusso in uso, ancora da fare
+D-02
+Fissare un tetto di spesa di 400 € al mese, con un responsabile
+CFO
+Entro il 30/11/2026
+Spesa sotto i 400 €, avviso prima di superarli
+D-03
+Passare a una persona i casi di fumo, calore e reclami gravi
+Responsabile assistenza
+Fatto il 23/11/2026
+Provato il 24/11 su due casi gravi: avviso e approvazione arrivati
+Limite negoziato
+Secondo aggiornamento dei dati del gestionale a mezzogiorno, concordato con l’IT
+IT
+Dopo il board
+Prezzo da stimare: costo e rischio per l’IT
+FRASE PER IL BOARD
+Chiediamo tre progetti, in quest’ordine, con un tetto di spesa e una persona che firma ogni gesto che non si annulla.
+Fonti: caso Vèrso, 10/11/2026 (dati simulati); flusso letto su n8n il 24/11/2026; scenario A, 1, 4 (24/11/2026).
+Slide 3 del deck: le tre decisioni, il limite da negoziare e la frase per il board. D-01: scadenza entro una settimana dal 23/11/2026, scelta dal gruppo. D-02: il tetto di 400 € al mese è il budget API approvato dal CFO (dato dichiarato nel memo, non verificato). D-03: la persona che riceve i casi gravi è il responsabile assistenza, scelta del gruppo. D-02: scadenza 30/11/2026. Limite negoziato: dopo il board. D-03: attuato su n8n il 23/11/2026 (avviso su Telegram per livello CRITICO o ALTO). Provato e letto sulle esecuzioni il 24/11/2026: batteria che non si carica con seriale del lotto (esecuzione 4774, livello ALTO, avviso e approvazione su Telegram, risposta inviata) e fumo bianco (esecuzione 4780, livello CRITICO, bozza con il 112, approvata e inviata). Eval del 24/11/2026: su 5 casi di sicurezza solo 1 ha ricevuto il consiglio del 112, 4 sono state bloccate dal guardrail senza risposta (giudizio nostro, da confermare da Quality). Il 24/11/2026 è stata aggiunta una corsia di sicurezza per i messaggi bloccati con parole di pericolo, provata su 1 caso. Seconda Eval del 24/11/2026: casi di sicurezza con il 112 nell’Eval 2 su 5, le altre 3 emergenze sono coperte solo dalla corsia di sicurezza (giudizio nostro, da confermare da Quality). Lo stesso giorno nel risponditore sono state aggiunte le istruzioni 112 e la lingua del cliente (parte di D-01): resta da ripetere l’Eval. Dettaglio in management/05_allineamento_n8n/MODIFICHE_flusso_23112026.md. Stato di D-01 al 24/11/2026: correzioni nel flusso in uso fatte (istruzioni 112, lingua del cliente, uscita «bloccata», corsia di sicurezza, avvisi Telegram senza firma di n8n); manca l’Eval ripetuta sul flusso in uso, che è il fatto che chiude D-01. La frase per il board è cambiata il 24/11/2026: prima parlava di riaprire il pilota; ora riprende le tre scelte della lezione 12 (A, 1, 4) e la slide della richiesta. È una proposta da confermare. D-01 nasce dalla lettura su n8n del 23/11/2026: il flusso in uso non ha le istruzioni di sicurezza per fumo e calore né la risposta nella lingua del cliente, che ci sono solo nella versione Eval. Il costo del modello e il tetto di spesa vengono dal memo del CFO (dati dichiarati, non verificati): vedi la slide sui costi.
+14
+
+LEZIONE 13 · LA RICHIESTA
+Chiediamo tre progetti e 17.500 €, con risultati entro marzo
+BUDGET
+17.500 €
+Su 22.500 €. AI e n8n: circa 52 € al mese su 400 € di tetto.
+DECISIONE
+Tre progetti
+A, 1, 4: dati, risposte, social. Il punteggio dei clienti non parte.
+TEMPI
+Entro marzo
+Risultati alle settimane 3, 11, 19. Correzioni entro il 30/11.
+SE UN CRITERIO NON È VERO AL CONTROLLO
+Il progetto si ferma e si torna alle persone: nessuna spesa oltre il tetto.
+Fonti: modello degli scenari (24/11/2026); L12_otto_idee.md (19/11/2026); memo del CFO (dichiarato).
+La richiesta al board mette insieme le slide precedenti. Budget: 17.500 € è la somma delle tre prove (A 4.500 + idea 1 7.000 + idea 4 6.000), su un budget di 22.500 € (dimezzato dall’AD); avanzano 5.000 €. Le ore dell’assistenza sono 5,5 su 6 (2,5 + 2 + 1). I 400 € al mese sono il tetto di spesa del modello nel pilota, dato dichiarato nel memo del CFO (non verificato), controllato dal CFO; non sono compresi nei 17.500 € (non verificato che siano due voci separate). I costi misurati del modello sono nella slide dei costi. Al mese: modello circa 23 € più abbonamento n8n 29 € (IVA inclusa, dato del gruppo) fanno circa 52 € contro i 400 € stanziati, cioè restano circa 348 €; il personale (circa 4.420 € al mese, stima del docente) è la voce che pesa: vedi la slide dei costi al mese. Decisione: tre progetti nell’ordine in cui partono. L’idea 8 (punteggio di affidabilità) non parte: il cancello sul rischio è rosso (offerta senza intervento umano, senza motivo né contestazione). Per i rimborsi non dovuti proponiamo il controllo di una persona sulle richieste ripetute. Il parere legale è della DPO. Tempi: A parte alla settimana 0 e dà il primo risultato alla 3; la 1 parte alla 7 e lo dà alla 11; la 4 parte alla 15 e lo dà alla 19, cioè a marzo, senza margine. Le correzioni al flusso e il tetto di spesa (D-01 e D-02) sono previsti entro il 30/11/2026. Se un criterio della roadmap non è vero al controllo, il progetto si ferma e si torna alle persone: si fermano anche le chiamate al modello oltre il tetto. Le soglie di successo vanno fissate prima di iniziare. Frase per il board: chiediamo tre progetti, in quest’ordine, con un controllo umano e un fatto da verificare a ogni passaggio.
+15
